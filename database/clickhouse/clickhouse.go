@@ -277,6 +277,10 @@ func (ch *ClickHouse) Drop() (err error) {
 			return err
 		}
 
+		if strings.HasPrefix(table, ".inner_id.") {
+			continue
+		}
+
 		query = "DROP TABLE IF EXISTS " + ch.config.DatabaseName + "." + table
 
 		if _, err := ch.conn.Exec(query); err != nil {
